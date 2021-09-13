@@ -1,26 +1,17 @@
 package molinov.mvp
 
-class MainPresenter(private val view: MainView) {
-    private val model = CountersModel(0, 0, 0)
+import molinov.mvp.screens.AndroidScreens
+import moxy.MvpPresenter
+import ru.terrakok.cicerone.Router
 
-    fun firstCounterClick() {
-        val text = model.increaseFirst().toString()
-        view.setFirstButtonText(text)
+class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.replaceScreen(AndroidScreens.UsersScreen())
     }
 
-    fun secondCounterClick() {
-        val text = model.increaseSecond().toString()
-        view.setSecondButtonText(text)
-    }
-
-    fun firstThirdClick() {
-        val text = model.increaseThird().toString()
-        view.setThirdButtonText(text)
-    }
-
-    fun initButtons() {
-        view.setFirstButtonText(model.first.toString())
-        view.setSecondButtonText(model.second.toString())
-        view.setThirdButtonText(model.third.toString())
+    fun backPressed() {
+        router.exit()
     }
 }
