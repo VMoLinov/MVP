@@ -1,39 +1,39 @@
 package molinov.mvp
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import molinov.mvp.databinding.ActivityMainBinding
+import molinov.mvp.view.BackButtonListener
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private var _vb: ActivityMainBinding? = null
-    private val vb get() = _vb!!
-    private val presenter = MainPresenter(this)
+    private val navigator = SupportAppNavigator(this, R.id.container)
+    private val presenter by moxyPresenter { MainPresenter(App.instance.router) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _vb = ActivityMainBinding.inflate(layoutInflater)
+        val vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
-        presenter.initButtons()
-        vb.btnCounter1.setOnClickListener { presenter.firstCounterClick() }
-        vb.btnCounter2.setOnClickListener { presenter.secondCounterClick() }
-        vb.btnCounter3.setOnClickListener { presenter.firstThirdClick() }
     }
 
-    override fun setFirstButtonText(text: String) {
-        vb.btnCounter1.text = text
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        App.instance.navigationHolder.setNavigator(navigator)
     }
 
-    override fun setSecondButtonText(text: String) {
-        vb.btnCounter2.text = text
+    override fun onPause() {
+        super.onPause()
+        App.instance.navigationHolder.removeNavigator()
     }
 
-    override fun setThirdButtonText(text: String) {
-        vb.btnCounter3.text = text
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _vb = null
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if (it is BackButtonListener && it.backPressed()) {
+                return
+            }
+        }
+        presenter.backPressed()
     }
 }
