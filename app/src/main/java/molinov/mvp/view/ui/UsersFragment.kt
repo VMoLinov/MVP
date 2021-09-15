@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUsersBinding
-import molinov.mvp.model.GithubUsersRepo
 import molinov.mvp.presentation.UsersPresenter
 import molinov.mvp.view.BackButtonListener
 import moxy.MvpAppCompatFragment
@@ -19,10 +18,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            GithubUsersRepo(),
-            App.instance.router
-        )
+        UsersPresenter(App.instance.router)
     }
     private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter) }
 

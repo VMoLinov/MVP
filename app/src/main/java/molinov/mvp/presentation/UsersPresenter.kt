@@ -1,5 +1,6 @@
 package molinov.mvp.presentation
 
+import android.util.Log
 import molinov.mvp.model.GithubUser
 import molinov.mvp.model.GithubUsersRepo
 import molinov.mvp.screens.AndroidScreens
@@ -9,13 +10,12 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
-    private val usersRepo: GithubUsersRepo,
     private val router: Router
 ) : MvpPresenter<UsersView>() {
 
     class UsersListPresenter : IUserListPresenter {
 
-        val users = mutableListOf<GithubUser>()
+        private val users = mutableListOf<GithubUser>()
 
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 
@@ -24,6 +24,20 @@ class UsersPresenter(
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
             view.showLogin(user.login)
+        }
+
+        fun subscribeData(usersRepo: GithubUsersRepo) {
+            usersRepo.getUsers().subscribe({
+                users.add(it)
+            }, {
+                Log.d(RX, "error subscribe data ${it.message}")
+            }, {
+                Log.d(RX, "subscribe complete")
+            }).dispose()
+        }
+
+        companion object {
+            const val RX = "RxJava"
         }
     }
 
@@ -39,8 +53,7 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
+        usersListPresenter.subscribeData(GithubUsersRepo())
         viewState.updateList()
     }
 

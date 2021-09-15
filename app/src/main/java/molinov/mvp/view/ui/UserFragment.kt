@@ -46,7 +46,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     companion object {
-        const val PARCELABLE = "key"
+        const val PARCELABLE = "git_hub_user_key"
         fun newInstance(user: GithubUser): MvpAppCompatFragment {
             val b = Bundle()
             b.putParcelable(PARCELABLE, user)
