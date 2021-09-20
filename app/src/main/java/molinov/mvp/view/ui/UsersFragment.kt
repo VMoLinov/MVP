@@ -19,10 +19,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            GithubUsersRepo(),
-            App.instance.router
-        )
+        UsersPresenter(GithubUsersRepo(), App.instance.router)
     }
     private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter) }
 
