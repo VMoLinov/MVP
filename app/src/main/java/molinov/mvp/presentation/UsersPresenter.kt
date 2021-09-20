@@ -10,6 +10,7 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
+    private val usersRepo: GithubUsersRepo,
     private val router: Router
 ) : MvpPresenter<UsersView>() {
 
@@ -32,7 +33,7 @@ class UsersPresenter(
             }, {
                 Log.d(RX, "error subscribe data ${it.message}")
             }, {
-                Log.d(RX, "subscribe complete")
+                Log.e(RX, "subscribe complete")
             }).dispose()
         }
 
@@ -53,7 +54,7 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        usersListPresenter.subscribeData(GithubUsersRepo())
+        usersListPresenter.subscribeData(usersRepo)
         viewState.updateList()
     }
 
