@@ -10,20 +10,20 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import molinov.mvp.App
 import molinov.mvp.R
-import molinov.mvp.databinding.FragmentImageViewBinding
+import molinov.mvp.databinding.FragmentImagesBinding
 import molinov.mvp.model.Image
-import molinov.mvp.presentation.ImagePresenter
+import molinov.mvp.presentation.ImagesPresenter
 import molinov.mvp.view.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import java.io.File
 
-class ImageScreenFragment : MvpAppCompatFragment(), ImageView, BackButtonListener {
+class ImagesFragment : MvpAppCompatFragment(), ImagesView, BackButtonListener {
 
-    private var _vb: FragmentImageViewBinding? = null
+    private var _vb: FragmentImagesBinding? = null
     private val vb get() = _vb!!
     private val presenter by moxyPresenter {
-        ImagePresenter(image, App.instance.router)
+        ImagesPresenter(image, App.instance.router)
     }
     private val dir by lazy {
         requireContext().getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE)
@@ -43,7 +43,7 @@ class ImageScreenFragment : MvpAppCompatFragment(), ImageView, BackButtonListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _vb = FragmentImageViewBinding.inflate(inflater, container, false)
+        _vb = FragmentImagesBinding.inflate(inflater, container, false)
         return vb.root
     }
 
@@ -59,13 +59,17 @@ class ImageScreenFragment : MvpAppCompatFragment(), ImageView, BackButtonListene
     override fun init() {
         vb.imageJpeg.setImageBitmap(BitmapFactory.decodeFile(image.file.absolutePath))
         vb.back.setOnClickListener { presenter.onBackPressed() }
-        vb.convert.setOnClickListener { presenter.setConvert() }
-        vb.dismiss.setOnClickListener { presenter.setDismiss() }
-        vb.delete.setOnClickListener { presenter.setDelete() }
+        vb.convert.setOnClickListener { presenter.convert() }
+        vb.dismiss.setOnClickListener { presenter.dismiss() }
+        vb.delete.setOnClickListener { presenter.delete() }
     }
 
     override fun convert(file: File) {
         vb.imagePng.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
+    }
+
+    override fun dismiss() {
+//        TODO("Not yet implemented")
     }
 
     override fun delete() {

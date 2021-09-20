@@ -1,14 +1,14 @@
 package molinov.mvp.presentation
 
 import molinov.mvp.model.Image
-import molinov.mvp.view.ui.ImageView
+import molinov.mvp.view.ui.ImagesView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class ImagePresenter(
+class ImagesPresenter(
     private val image: Image,
     private val router: Router
-) : MvpPresenter<ImageView>() {
+) : MvpPresenter<ImagesView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -20,17 +20,17 @@ class ImagePresenter(
         return true
     }
 
-    fun setConvert() {
+    fun convert() {
         image.convertJpegToPng().subscribe {
             viewState.convert(it)
         }
     }
 
-    fun setDismiss() {
+    fun dismiss() {
 
     }
 
-    fun setDelete() {
+    fun delete() {
         viewState.delete()
     }
 }

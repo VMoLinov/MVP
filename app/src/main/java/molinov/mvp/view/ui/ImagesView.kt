@@ -5,8 +5,9 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 import java.io.File
 
 @AddToEndSingle
-interface ImageView : MvpView {
+interface ImagesView : MvpView {
     fun init()
     fun convert(file: File)
+    fun dismiss()
     fun delete()
 }

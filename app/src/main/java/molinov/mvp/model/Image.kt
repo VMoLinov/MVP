@@ -17,13 +17,13 @@ class Image(var file: File) {
             val outStream: FileOutputStream?
             try {
                 outStream = FileOutputStream(file)
-                drawable?.toBitmap()?.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+                drawable?.toBitmap()
+                    ?.compress(Bitmap.CompressFormat.JPEG, CONVERT_QUALITY, outStream)
                 outStream.flush()
                 outStream.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-            BitmapFactory.decodeFile(file.absolutePath)
         }
         return this
     }
@@ -36,13 +36,12 @@ class Image(var file: File) {
             val outStream: FileOutputStream?
             try {
                 outStream = FileOutputStream(filePNG)
-                image.compress(Bitmap.CompressFormat.PNG, 100, outStream)
+                image.compress(Bitmap.CompressFormat.PNG, CONVERT_QUALITY, outStream)
                 outStream.flush()
                 outStream.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-            BitmapFactory.decodeFile(filePNG.absolutePath)
             emitter.onNext(filePNG)
         }
     }
@@ -50,5 +49,6 @@ class Image(var file: File) {
     companion object {
         const val IMAGE_JPEG = "nasa.jpeg"
         const val IMAGE_PNG = "nasa.png"
+        const val CONVERT_QUALITY = 100
     }
 }
