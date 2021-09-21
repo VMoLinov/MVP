@@ -8,4 +8,7 @@
     <string name="back">back</string>
     <string name="image_fragment">image fragment</string>
     <string name="delete">delete</string>
+    <string name="jpeg">JPEG</string>
+    <string name="png">PNG</string>
+    <string name="cancelled_by_user">cancelled by user</string>
 </resources>

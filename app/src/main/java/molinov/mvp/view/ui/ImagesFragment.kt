@@ -7,7 +7,9 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import molinov.mvp.App
 import molinov.mvp.R
 import molinov.mvp.databinding.FragmentImagesBinding
@@ -57,22 +59,43 @@ class ImagesFragment : MvpAppCompatFragment(), ImagesView, BackButtonListener {
     }
 
     override fun init() {
-        vb.imageJpeg.setImageBitmap(BitmapFactory.decodeFile(image.file.absolutePath))
+        vb.progressBar.isVisible = false
+        vb.cancelled.isVisible = false
+        vb.imagePng.isVisible = false
+        vb.imageJpeg.setImageBitmap(BitmapFactory.decodeFile(image.fileJPEG.absolutePath))
         vb.back.setOnClickListener { presenter.onBackPressed() }
-        vb.convert.setOnClickListener { presenter.convert() }
+        vb.convert.setOnClickListener {
+            if (!vb.imagePng.isVisible) {
+                vb.progressBar.isVisible = true
+                vb.cancelled.isVisible = false
+                presenter.convert()
+            } else Toast.makeText(
+                requireContext(),
+                "already converted\ndelete before convert",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         vb.dismiss.setOnClickListener { presenter.dismiss() }
         vb.delete.setOnClickListener { presenter.delete() }
     }
 
     override fun convert(file: File) {
         vb.imagePng.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
+        vb.progressBar.isVisible = false
+        vb.imagePng.isVisible = true
     }
 
     override fun dismiss() {
-//        TODO("Not yet implemented")
+        if (vb.progressBar.isVisible) {
+            vb.progressBar.isVisible = false
+            vb.cancelled.isVisible = true
+        }
     }
 
     override fun delete() {
-        vb.imagePng.setImageBitmap(null)
+        if (!vb.progressBar.isVisible) {
+            vb.imagePng.setImageBitmap(null)
+            vb.imagePng.isVisible = false
+        }
     }
 }
