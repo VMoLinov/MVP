@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
-import molinov.mvp.R
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.model.GithubUser
 import molinov.mvp.navigation.BackButtonListener
-import molinov.mvp.ui.activity.MainActivity
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.user.adapter.ReposRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
@@ -31,13 +28,6 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
             App.instance.router
         )
     }
-    private val navigator by lazy {
-        SupportAppNavigator(
-            requireActivity(),
-            parentFragmentManager,
-            R.id.fragment_container
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,13 +35,10 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
         savedInstanceState: Bundle?
     ): View {
         _vb = FragmentUserBinding.inflate(inflater, container, false)
-        App.instance.navigationHolder.removeNavigator()
-        App.instance.navigationHolder.setNavigator(navigator)
         return vb.root
     }
 
     override fun onDestroyView() {
-        (activity as MainActivity).setNavigator()
         super.onDestroyView()
         _vb = null
     }
