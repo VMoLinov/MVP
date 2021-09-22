@@ -3,8 +3,10 @@ package molinov.mvp.ui.user
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import molinov.mvp.App
 import molinov.mvp.model.GithubUser
-import molinov.mvp.model.UserRepos
+import molinov.mvp.model.UserRepo
+import molinov.mvp.navigation.AndroidScreens
 import molinov.mvp.ui.items.IReposListPresenter
 import molinov.mvp.ui.user.adapter.RepoItemView
 import moxy.MvpPresenter
@@ -17,7 +19,7 @@ class UserPresenter(
 
     class RepoListPresenter : IReposListPresenter {
 
-        val repoList = mutableListOf<UserRepos>()
+        val repoList = mutableListOf<UserRepo>()
 
         override var itemClickListener: ((RepoItemView) -> Unit)? = null
 
@@ -39,7 +41,7 @@ class UserPresenter(
             loadData(user)
         }
         reposListPresenter.itemClickListener = {
-
+            router.navigateTo(AndroidScreens.RepoScreen(reposListPresenter.repoList[it.pos]))
         }
     }
 

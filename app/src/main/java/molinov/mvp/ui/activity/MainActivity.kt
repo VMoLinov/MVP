@@ -22,6 +22,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
+        setNavigator()
+    }
+
+    fun setNavigator() {
         App.instance.navigationHolder.setNavigator(navigator)
     }
 

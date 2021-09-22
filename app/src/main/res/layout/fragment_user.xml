@@ -29,9 +29,15 @@
             android:layout_marginTop="@dimen/margin_not_first"
             tools:text="login" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRepos"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRepos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

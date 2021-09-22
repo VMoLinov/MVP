@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UserRepos(
+data class UserRepo(
 
     @Expose
     val id: Long? = null,
