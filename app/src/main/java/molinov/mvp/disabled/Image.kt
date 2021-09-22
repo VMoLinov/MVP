@@ -1,4 +1,4 @@
-package molinov.mvp.model
+package molinov.mvp.disabled
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

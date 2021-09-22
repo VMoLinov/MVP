@@ -1,4 +1,4 @@
-package molinov.mvp.view.ui
+package molinov.mvp.disabled
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle

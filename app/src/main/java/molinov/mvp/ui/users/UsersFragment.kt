@@ -1,4 +1,4 @@
-package molinov.mvp.view.ui
+package molinov.mvp.ui.users
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUsersBinding
 import molinov.mvp.model.GithubUsersRepo
-import molinov.mvp.presentation.UsersPresenter
-import molinov.mvp.screens.AndroidScreens
-import molinov.mvp.view.BackButtonListener
+import molinov.mvp.navigation.AndroidScreens
+import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.ui.images.GlideImageLoader
+import molinov.mvp.ui.users.adapter.UsersRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -22,7 +23,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val presenter by moxyPresenter {
         UsersPresenter(GithubUsersRepo(), App.instance.router)
     }
-    private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter) }
+    private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,9 +37,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun init() {
         vb.rvUsers.layoutManager = LinearLayoutManager(requireContext())
         vb.rvUsers.adapter = adapter
-        vb.imageFragment.setOnClickListener {
-            App.instance.router.navigateTo(AndroidScreens.ImageScreen())
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

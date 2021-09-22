@@ -1,18 +1,10 @@
 package molinov.mvp.model
 
-import io.reactivex.rxjava3.core.Observable
+import molinov.mvp.remote.ApiHolder
 
 class GithubUsersRepo {
 
-    private val users = listOf(
-        GithubUser("user1"),
-        GithubUser("user2"),
-        GithubUser("user3"),
-        GithubUser("user4"),
-        GithubUser("user5")
-    )
+    fun getUsers() = ApiHolder.api.loadUsers()
 
-    fun getUsers(): Observable<GithubUser> {
-        return Observable.fromIterable(users)
-    }
+    fun getRepos(reposUrl: String) = ApiHolder.api.getRepos(reposUrl)
 }

@@ -1,7 +1,7 @@
-package molinov.mvp.presentation
+package molinov.mvp.ui.users
 
 import molinov.mvp.model.GithubUser
-import molinov.mvp.view.ui.UserView
+import molinov.mvp.ui.users.UserView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 

@@ -1,7 +1,6 @@
-package molinov.mvp.presentation
+package molinov.mvp.ui.items
 
-import molinov.mvp.view.IItemView
-import molinov.mvp.view.UserItemView
+import molinov.mvp.ui.users.adapter.UserItemView
 
 
 interface IListPresenter<V : IItemView> {

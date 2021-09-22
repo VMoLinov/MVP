@@ -1,4 +1,4 @@
-package molinov.mvp.view.ui
+package molinov.mvp.ui.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.model.GithubUser
-import molinov.mvp.presentation.UserPresenter
-import molinov.mvp.view.BackButtonListener
+import molinov.mvp.navigation.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 

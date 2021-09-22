@@ -1,6 +1,6 @@
-package molinov.mvp
+package molinov.mvp.ui.activity
 
-import molinov.mvp.screens.AndroidScreens
+import molinov.mvp.navigation.AndroidScreens
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 

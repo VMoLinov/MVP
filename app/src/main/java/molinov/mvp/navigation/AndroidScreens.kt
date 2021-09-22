@@ -1,9 +1,9 @@
-package molinov.mvp.screens
+package molinov.mvp.navigation
 
 import molinov.mvp.model.GithubUser
-import molinov.mvp.view.ui.ImagesFragment
-import molinov.mvp.view.ui.UserFragment
-import molinov.mvp.view.ui.UsersFragment
+import molinov.mvp.disabled.ImagesFragment
+import molinov.mvp.ui.users.UserFragment
+import molinov.mvp.ui.users.UsersFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object AndroidScreens {
@@ -16,7 +16,7 @@ object AndroidScreens {
         override fun getFragment() = UserFragment.newInstance(user)
     }
 
-    class ImageScreen : SupportAppScreen() {
-        override fun getFragment() = ImagesFragment()
-    }
+//    class ImageScreen : SupportAppScreen() {
+//        override fun getFragment() = ImagesFragment()
+//    }
 }

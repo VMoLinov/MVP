@@ -1,8 +1,10 @@
-package molinov.mvp
+package molinov.mvp.ui.activity
 
 import android.os.Bundle
+import molinov.mvp.App
+import molinov.mvp.R
 import molinov.mvp.databinding.ActivityMainBinding
-import molinov.mvp.view.BackButtonListener
+import molinov.mvp.navigation.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator

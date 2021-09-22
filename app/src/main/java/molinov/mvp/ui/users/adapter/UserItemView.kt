@@ -1,9 +1,10 @@
-package molinov.mvp.view
+package molinov.mvp.ui.users.adapter
 
 import molinov.mvp.model.GithubUser
+import molinov.mvp.ui.items.IItemView
 
 interface UserItemView : IItemView {
 
     fun showLogin(login: String)
-    fun getUser(): GithubUser
+    fun loadAvatar(url: String)
 }
