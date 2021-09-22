@@ -3,4 +3,7 @@
     <dimen name="buttons_margin">5dp</dimen>
     <dimen name="images_height">300dp</dimen>
     <dimen name="avatar">30dp</dimen>
+    <dimen name="margin_first">16dp</dimen>
+    <dimen name="margin_not_first">8dp</dimen>
+    <dimen name="recycle_height">50dp</dimen>
 </resources>

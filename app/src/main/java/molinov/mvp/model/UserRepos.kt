@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class UserRepos(
 
     @Expose
-    val id: String? = null,
+    val id: Long? = null,
 
     @Expose
     val name: String? = null,

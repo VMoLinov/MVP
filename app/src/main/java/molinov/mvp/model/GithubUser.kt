@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import molinov.mvp.remote.ApiHolder
 
 @Parcelize
 data class GithubUser(
@@ -20,4 +21,7 @@ data class GithubUser(
     @Expose
     @SerializedName("repos_url")
     val reposUrl: String? = null
-) : Parcelable
+) : Parcelable {
+
+    fun getRepos(reposUrl: String) = ApiHolder.api.getRepos(reposUrl)
+}

@@ -1,8 +1,7 @@
 package molinov.mvp.navigation
 
 import molinov.mvp.model.GithubUser
-import molinov.mvp.disabled.ImagesFragment
-import molinov.mvp.ui.users.UserFragment
+import molinov.mvp.ui.user.UserFragment
 import molinov.mvp.ui.users.UsersFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 

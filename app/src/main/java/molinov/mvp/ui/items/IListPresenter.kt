@@ -1,5 +1,6 @@
 package molinov.mvp.ui.items
 
+import molinov.mvp.ui.user.adapter.RepoItemView
 import molinov.mvp.ui.users.adapter.UserItemView
 
 
@@ -11,3 +12,5 @@ interface IListPresenter<V : IItemView> {
 }
 
 interface IUserListPresenter : IListPresenter<UserItemView>
+
+interface IReposListPresenter : IListPresenter<RepoItemView>

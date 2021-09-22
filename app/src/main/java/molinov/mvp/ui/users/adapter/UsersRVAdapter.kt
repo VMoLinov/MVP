@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import molinov.mvp.databinding.ItemUserBinding
-import molinov.mvp.model.GithubUser
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.items.IUserListPresenter
 

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUsersBinding
 import molinov.mvp.model.GithubUsersRepo
-import molinov.mvp.navigation.AndroidScreens
 import molinov.mvp.navigation.BackButtonListener
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.users.adapter.UsersRVAdapter
