@@ -10,6 +10,7 @@ import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUsersBinding
 import molinov.mvp.model.GithubUsersRepo
 import molinov.mvp.presentation.UsersPresenter
+import molinov.mvp.screens.AndroidScreens
 import molinov.mvp.view.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -35,6 +36,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun init() {
         vb.rvUsers.layoutManager = LinearLayoutManager(requireContext())
         vb.rvUsers.adapter = adapter
+        vb.imageFragment.setOnClickListener {
+            App.instance.router.navigateTo(AndroidScreens.ImageScreen())
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
