@@ -1,7 +1,7 @@
 package molinov.mvp.navigation
 
-import molinov.mvp.model.GithubUser
-import molinov.mvp.model.UserRepo
+import molinov.mvp.data.GitHubRepository
+import molinov.mvp.data.GitHubUser
 import molinov.mvp.ui.repo.RepoFragment
 import molinov.mvp.ui.user.UserFragment
 import molinov.mvp.ui.users.UsersFragment
@@ -13,11 +13,11 @@ object AndroidScreens {
         override fun getFragment() = UsersFragment()
     }
 
-    class UserScreen(private val user: GithubUser) : SupportAppScreen() {
+    class UserScreen(private val user: GitHubUser) : SupportAppScreen() {
         override fun getFragment() = UserFragment.newInstance(user)
     }
 
-    class RepoScreen(private val repo: UserRepo) : SupportAppScreen() {
+    class RepoScreen(private val repo: GitHubRepository) : SupportAppScreen() {
         override fun getFragment() = RepoFragment.newInstance(repo)
     }
 

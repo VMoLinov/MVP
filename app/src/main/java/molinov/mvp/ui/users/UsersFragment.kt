@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
+import molinov.mvp.data.GitHubRepositoriesRepo
+import molinov.mvp.data.GithubUsersRepo
+import molinov.mvp.data.db.GithubDatabase
 import molinov.mvp.databinding.FragmentUsersBinding
-import molinov.mvp.model.GithubUsersRepo
 import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.network.AndroidNetworkStatus
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.users.adapter.UsersRVAdapter
 import moxy.MvpAppCompatFragment
@@ -20,7 +23,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
     private val presenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router)
+        UsersPresenter(
+            GithubUsersRepo(AndroidNetworkStatus(requireContext()), GithubDatabase.getInstance()),
+            GitHubRepositoriesRepo(
+                AndroidNetworkStatus(requireContext()),
+                GithubDatabase.getInstance()
+            ),
+            App.instance.router
+        )
     }
     private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader()) }
 

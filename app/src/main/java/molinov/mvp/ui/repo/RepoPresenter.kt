@@ -1,11 +1,11 @@
 package molinov.mvp.ui.repo
 
-import molinov.mvp.model.UserRepo
+import molinov.mvp.data.GitHubRepository
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
 class RepoPresenter(
-    private val repo: UserRepo?,
+    private val repo: GitHubRepository?,
     private val router: Router
 ) : MvpPresenter<RepoView>() {
 
