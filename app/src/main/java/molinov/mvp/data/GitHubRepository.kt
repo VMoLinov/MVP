@@ -14,7 +14,7 @@ data class GitHubRepository(
     val name: String,
 
     @Expose
-    val description: String,
+    val description: String?,
 
     @Expose
     val forks: Long,

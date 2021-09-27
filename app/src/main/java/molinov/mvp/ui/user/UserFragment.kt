@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
+import molinov.mvp.data.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubUser
+import molinov.mvp.data.db.GithubDatabase
+import molinov.mvp.data.db.RoomGithubRepositoriesCache
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.network.AndroidNetworkStatus
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.user.adapter.ReposRVAdapter
 import moxy.MvpAppCompatFragment
@@ -25,6 +29,11 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
     private val presenter by moxyPresenter {
         UserPresenter(
             this.arguments?.getParcelable(PARCELABLE),
+            GitHubRepositoriesRepo(
+                RoomGithubRepositoriesCache(),
+                AndroidNetworkStatus(requireContext()),
+                GithubDatabase.getInstance()
+            ),
             App.instance.router
         )
     }

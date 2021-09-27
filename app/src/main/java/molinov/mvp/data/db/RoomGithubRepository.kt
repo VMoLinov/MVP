@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 data class RoomGithubRepository(
     @PrimaryKey val id: Long,
     val name: String,
-    val description: String,
+    val description: String?,
     val forks: Long,
     val watchers: Long,
     val userId: Long

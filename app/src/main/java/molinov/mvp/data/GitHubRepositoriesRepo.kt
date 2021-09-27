@@ -1,12 +1,13 @@
 package molinov.mvp.data
 
 import io.reactivex.rxjava3.core.Single
+import molinov.mvp.data.db.CacheRepositories
 import molinov.mvp.data.db.GithubDatabase
-import molinov.mvp.data.db.RoomGithubRepository
 import molinov.mvp.network.INetworkStatus
 import molinov.mvp.remote.ApiHolder
 
 class GitHubRepositoriesRepo(
+    private val cache: CacheRepositories,
     private val networkStatus: INetworkStatus,
     private val db: GithubDatabase
 ) {
@@ -16,17 +17,7 @@ class GitHubRepositoriesRepo(
             if (isOnline) {
                 ApiHolder.api.getRepos(user.reposUrl).flatMap { repositories ->
                     Single.fromCallable {
-                        val roomUser = db.userDao.getByLogin(user.login)
-                        val roomRepos = repositories.map {
-                            RoomGithubRepository(
-                                id = it.id,
-                                name = it.name,
-                                description = it.description,
-                                forks = it.forks,
-                                watchers = it.watchers,
-                                userId = roomUser.id
-                            )
-                        }
+                        val roomRepos = cache.fromModelToDb(repositories, user.id)
                         db.repositoryDao.insert(roomRepos)
                         repositories
                     }
@@ -34,15 +25,8 @@ class GitHubRepositoriesRepo(
             } else {
                 Single.fromCallable {
                     val roomUser = db.userDao.getByLogin(user.login)
-                    db.repositoryDao.getByUserId(roomUser.id.toString()).map {
-                        GitHubRepository(
-                            id = it.id,
-                            name = it.name,
-                            description = it.description,
-                            forks = it.forks,
-                            watchers = it.watchers
-                        )
-                    }
+                    val repos = db.repositoryDao.getByUserId(roomUser.id.toString())
+                    cache.fromDbToModel(repos)
                 }
             }
         }

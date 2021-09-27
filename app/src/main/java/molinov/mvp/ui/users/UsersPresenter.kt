@@ -3,7 +3,6 @@ package molinov.mvp.ui.users
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import molinov.mvp.data.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubUser
 import molinov.mvp.data.GithubUsersRepo
 import molinov.mvp.navigation.AndroidScreens
@@ -14,7 +13,6 @@ import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
     private val usersRepo: GithubUsersRepo,
-    private val reposRepo: GitHubRepositoriesRepo,
     private val router: Router
 ) : MvpPresenter<UsersView>() {
 
@@ -28,8 +26,8 @@ class UsersPresenter(
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.showLogin(user.login.orEmpty())
-            view.loadAvatar(user.avatarUrl.orEmpty())
+            view.showLogin(user.login)
+            view.loadAvatar(user.avatarUrl)
         }
     }
 
@@ -48,26 +46,11 @@ class UsersPresenter(
         usersRepo.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map {
-//                loadRepos(it.first())
-                it
-            }
             .subscribe({
                 usersListPresenter.users.addAll(it)
                 viewState.updateList()
             }, {
                 Log.e("UsersPresenter", "Ошибка получения пользователей", it)
-            })
-    }
-
-    private fun loadRepos(user: GitHubUser) {
-        reposRepo.getRepositories(user)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.d(this.toString(), "${it.first()}")
-            }, {
-                Log.e(this.toString(), "Error", it)
             })
     }
 
