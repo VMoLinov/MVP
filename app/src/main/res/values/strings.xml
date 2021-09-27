@@ -11,4 +11,7 @@
     <string name="jpeg">JPEG</string>
     <string name="png">PNG</string>
     <string name="cancelled_by_user">cancelled by user</string>
+    <string name="repo_name">Имя репозитория</string>
+    <string name="repo_forks">Веток</string>
+    <string name="repo_watchers">Подписчики</string>
 </resources>

@@ -1,14 +1,18 @@
-package molinov.mvp.view.ui
+package molinov.mvp.ui.user
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.model.GithubUser
-import molinov.mvp.presentation.UserPresenter
-import molinov.mvp.view.BackButtonListener
+import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.ui.images.GlideImageLoader
+import molinov.mvp.ui.user.adapter.ReposRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -16,6 +20,8 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
     private var _vb: FragmentUserBinding? = null
     private val vb get() = _vb!!
+    private val imageLoader = GlideImageLoader()
+    private val adapter by lazy { ReposRVAdapter(presenter.reposListPresenter) }
     private val presenter by moxyPresenter {
         UserPresenter(
             this.arguments?.getParcelable(PARCELABLE),
@@ -41,8 +47,22 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
         return presenter.backPressed()
     }
 
-    override fun init(name: String?) {
-        vb.textView.text = name
+    override fun init(user: GithubUser) {
+        user.avatarUrl?.let { imageLoader.loadTo(it, vb.avatar) }
+        vb.textView.text = user.login
+        vb.rvRepos.layoutManager = LinearLayoutManager(requireContext())
+        vb.rvRepos.adapter = adapter
+        vb.rvRepos.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun updateList() {
+        adapter.notifyDataSetChanged()
     }
 
     companion object {

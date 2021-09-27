@@ -1,11 +1,9 @@
-package molinov.mvp.presentation
+package molinov.mvp.disabled
 
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import molinov.mvp.model.Image
-import molinov.mvp.view.ui.ImagesView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 

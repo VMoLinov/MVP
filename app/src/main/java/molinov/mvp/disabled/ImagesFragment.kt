@@ -1,4 +1,4 @@
-package molinov.mvp.view.ui
+package molinov.mvp.disabled
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -13,9 +13,7 @@ import androidx.core.view.isVisible
 import molinov.mvp.App
 import molinov.mvp.R
 import molinov.mvp.databinding.FragmentImagesBinding
-import molinov.mvp.model.Image
-import molinov.mvp.presentation.ImagesPresenter
-import molinov.mvp.view.BackButtonListener
+import molinov.mvp.navigation.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import java.io.File

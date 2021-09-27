@@ -1,4 +1,4 @@
-package molinov.mvp.view
+package molinov.mvp.ui.items
 
 interface IItemView {
 

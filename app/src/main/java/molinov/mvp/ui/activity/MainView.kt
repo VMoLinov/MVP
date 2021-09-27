@@ -1,4 +1,4 @@
-package molinov.mvp
+package molinov.mvp.ui.activity
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle

@@ -1,15 +1,16 @@
-package molinov.mvp.view.ui
+package molinov.mvp.ui.users.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import molinov.mvp.databinding.ItemUserBinding
-import molinov.mvp.model.GithubUser
-import molinov.mvp.presentation.IUserListPresenter
-import molinov.mvp.view.UserItemView
+import molinov.mvp.ui.images.GlideImageLoader
+import molinov.mvp.ui.items.IUserListPresenter
 
-class UsersRVAdapter(private val presenter: IUserListPresenter) :
-    RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
+class UsersRVAdapter(
+    private val presenter: IUserListPresenter,
+    private val imageLoader: GlideImageLoader
+) : RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,7 +30,7 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
         presenter.bindView(holder.apply { pos = position })
     }
 
-    class ViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root),
+    inner class ViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root),
         UserItemView {
 
         override var pos: Int = -1
@@ -38,8 +39,8 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
             vb.tvLogin.text = login
         }
 
-        override fun getUser(): GithubUser {
-            return GithubUser(vb.tvLogin.text.toString())
+        override fun loadAvatar(url: String) {
+            imageLoader.loadTo(url, vb.avatar)
         }
     }
 }
