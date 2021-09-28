@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
 import molinov.mvp.data.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubUser
-import molinov.mvp.data.db.GithubDatabase
+import molinov.mvp.data.db.GitHubDatabase
 import molinov.mvp.data.db.RoomGithubRepositoriesCache
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.navigation.BackButtonListener
@@ -30,9 +30,8 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
         UserPresenter(
             this.arguments?.getParcelable(PARCELABLE),
             GitHubRepositoriesRepo(
-                RoomGithubRepositoriesCache(),
-                AndroidNetworkStatus(requireContext()),
-                GithubDatabase.getInstance()
+                RoomGithubRepositoriesCache(GitHubDatabase.getInstance()),
+                AndroidNetworkStatus(requireContext())
             ),
             App.instance.router
         )

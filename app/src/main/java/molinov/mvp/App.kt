@@ -1,7 +1,7 @@
 package molinov.mvp
 
 import android.app.Application
-import molinov.mvp.data.db.GithubDatabase
+import molinov.mvp.data.db.GitHubDatabase
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
@@ -14,7 +14,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        GithubDatabase.create(this)
+        GitHubDatabase.create(this)
     }
 
     companion object {

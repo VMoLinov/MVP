@@ -1,14 +1,17 @@
 package molinov.mvp.data.db
 
 import molinov.mvp.data.GitHubRepository
+import molinov.mvp.data.GitHubUser
 
-class RoomGithubRepositoriesCache : CacheRepositories {
+class RoomGithubRepositoriesCache(
+    private val db: GitHubDatabase
+) : CacheRepositories {
 
     override fun fromModelToDb(
         repos: List<GitHubRepository>,
         id: Long
     ): List<RoomGithubRepository> {
-        return repos.map { repo ->
+        val roomRepos = repos.map { repo ->
             RoomGithubRepository(
                 repo.id,
                 repo.name,
@@ -18,10 +21,14 @@ class RoomGithubRepositoriesCache : CacheRepositories {
                 id
             )
         }
+        db.repositoryDao.insert(roomRepos)
+        return roomRepos
     }
 
-    override fun fromDbToModel(roomRepos: List<RoomGithubRepository>?): List<GitHubRepository>? {
-        return roomRepos?.map { roomRepo ->
+    override fun fromDbToModel(user: GitHubUser): List<GitHubRepository>? {
+        val roomUser = db.userDao.getByLogin(user.login)
+        val roomRepos = db.repositoryDao.getByUserId(roomUser.id.toString())
+        val repos = roomRepos?.map { roomRepo ->
             GitHubRepository(
                 roomRepo.id,
                 roomRepo.name,
@@ -30,5 +37,6 @@ class RoomGithubRepositoriesCache : CacheRepositories {
                 roomRepo.watchers
             )
         }
+        return repos
     }
 }
