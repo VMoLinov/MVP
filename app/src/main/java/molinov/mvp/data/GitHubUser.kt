@@ -21,7 +21,4 @@ data class GitHubUser(
     @Expose
     @SerializedName("repos_url")
     val reposUrl: String
-) : Parcelable {
-
-    fun getRepos(reposUrl: String) = ApiHolder.api.getRepos(reposUrl)
-}
+) : Parcelable

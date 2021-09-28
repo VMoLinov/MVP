@@ -14,3 +14,8 @@ interface CacheRepositories {
     fun fromModelToDb(repos: List<GitHubRepository>, id: Long): List<RoomGithubRepository>
     fun fromDbToModel(user: GitHubUser): List<GitHubRepository>?
 }
+
+interface CacheImages {
+
+
+}
