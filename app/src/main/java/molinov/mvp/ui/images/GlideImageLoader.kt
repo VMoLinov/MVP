@@ -17,19 +17,19 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import molinov.mvp.data.db.GitHubDatabase
 import molinov.mvp.data.db.RoomCachedImage
-import molinov.mvp.disabled.Image
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class GlideImageLoader : IImageLoader<ImageView> {
+class GlideImageLoader(
+    private val db: GitHubDatabase
+) : IImageLoader<ImageView> {
 
     override fun loadTo(url: String, targetView: ImageView) {
         Glide.with(targetView.context)
             .load(url)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .listener(object : RequestListener<Drawable> {
-                val db = GitHubDatabase.getInstance()
 
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -66,17 +66,17 @@ class GlideImageLoader : IImageLoader<ImageView> {
                             resource?.toBitmap()
                                 ?.compress(
                                     Bitmap.CompressFormat.PNG,
-                                    Image.CONVERT_QUALITY, outStream
+                                    100, outStream
                                 )
                             outStream.flush()
                             outStream.close()
+                            Thread {
+                                db.imageDao.insert(RoomCachedImage(url, file.path))
+                            }.start()
                         } catch (e: IOException) {
                             e.printStackTrace()
                         }
                     }
-                    Thread {
-                        db.imageDao.insert(RoomCachedImage(url, file.path))
-                    }.start()
                     targetView.setImageDrawable(resource)
                     return true
                 }

@@ -31,7 +31,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             App.instance.router
         )
     }
-    private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader()) }
+    private val adapter by lazy {
+        UsersRVAdapter(
+            presenter.usersListPresenter, GlideImageLoader(
+                GitHubDatabase.getInstance()
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
