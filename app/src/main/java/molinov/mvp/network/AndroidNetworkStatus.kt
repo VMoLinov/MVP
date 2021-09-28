@@ -27,7 +27,7 @@ class AndroidNetworkStatus(context: Context) : INetworkStatus {
                     statusSubject.onNext(false)
                 }
 
-                override fun onLosing(network: Network, maxMsToLive: Int) {
+                override fun onLost(network: Network) {
                     statusSubject.onNext(false)
                 }
             })

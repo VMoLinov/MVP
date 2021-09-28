@@ -24,7 +24,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
     private var _vb: FragmentUserBinding? = null
     private val vb get() = _vb!!
-    private val imageLoader = GlideImageLoader()
+    private val imageLoader = GlideImageLoader(GitHubDatabase.getInstance())
     private val adapter by lazy { ReposRVAdapter(presenter.reposListPresenter) }
     private val presenter by moxyPresenter {
         UserPresenter(
