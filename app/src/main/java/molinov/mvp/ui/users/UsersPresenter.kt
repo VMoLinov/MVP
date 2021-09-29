@@ -10,8 +10,9 @@ import molinov.mvp.ui.items.IUserListPresenter
 import molinov.mvp.ui.users.adapter.UserItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class UsersPresenter(
+class UsersPresenter @Inject constructor(
     private val usersRepo: GitHubUsersRepo,
     private val router: Router
 ) : MvpPresenter<UsersView>() {

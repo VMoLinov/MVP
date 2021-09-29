@@ -2,8 +2,9 @@ package molinov.mvp.data.db
 
 import molinov.mvp.data.GitHubRepository
 import molinov.mvp.data.GitHubUser
+import javax.inject.Inject
 
-class RoomGithubRepositoriesCache(
+class RoomGithubRepositoriesCache @Inject constructor(
     private val db: GitHubDatabase
 ) : CacheRepositories {
 

@@ -11,12 +11,17 @@ import molinov.mvp.ui.items.IReposListPresenter
 import molinov.mvp.ui.user.adapter.RepoItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 class UserPresenter(
-    private val user: GitHubUser?,
-    private val reposRepo: GitHubRepositoriesRepo,
-    private val router: Router
+    private val user: GitHubUser?
 ) : MvpPresenter<UserView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var reposRepo: GitHubRepositoriesRepo
 
     class RepoListPresenter : IReposListPresenter {
 

@@ -8,13 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
-import molinov.mvp.data.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubUser
-import molinov.mvp.data.db.GitHubDatabase
-import molinov.mvp.data.db.RoomGithubRepositoriesCache
 import molinov.mvp.databinding.FragmentUserBinding
 import molinov.mvp.navigation.BackButtonListener
-import molinov.mvp.network.AndroidNetworkStatus
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.user.adapter.ReposRVAdapter
 import moxy.MvpAppCompatFragment
@@ -24,17 +20,12 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
     private var _vb: FragmentUserBinding? = null
     private val vb get() = _vb!!
-    private val imageLoader = GlideImageLoader(GitHubDatabase.getInstance())
+    private val imageLoader = GlideImageLoader().apply { App.instance.appComponent.inject(this) }
     private val adapter by lazy { ReposRVAdapter(presenter.reposListPresenter) }
     private val presenter by moxyPresenter {
-        UserPresenter(
-            this.arguments?.getParcelable(PARCELABLE),
-            GitHubRepositoriesRepo(
-                RoomGithubRepositoriesCache(GitHubDatabase.getInstance()),
-                AndroidNetworkStatus(requireContext())
-            ),
-            App.instance.router
-        )
+        UserPresenter(this.arguments?.getParcelable(PARCELABLE)).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreateView(

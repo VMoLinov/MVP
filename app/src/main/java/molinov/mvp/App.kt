@@ -1,20 +1,21 @@
 package molinov.mvp
 
 import android.app.Application
-import molinov.mvp.data.db.GitHubDatabase
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
+import molinov.mvp.di.AppComponent
+import molinov.mvp.di.DaggerAppComponent
+import molinov.mvp.di.modules.AppModule
 
 class App : Application() {
 
-    private val cicerone: Cicerone<Router> by lazy { Cicerone.create() }
-    val navigationHolder get() = cicerone.navigatorHolder
-    val router get() = cicerone.router
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        GitHubDatabase.create(this)
+
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     companion object {
