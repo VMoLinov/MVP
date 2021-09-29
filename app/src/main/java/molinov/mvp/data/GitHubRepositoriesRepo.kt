@@ -23,7 +23,8 @@ class GitHubRepositoriesRepo @Inject constructor(
                 }
             } else {
                 Single.fromCallable {
-                    cache.fromDbToModel(user)
+                    val ret = cache.fromDbToModel(user)
+                    ret
                 }
             }
         }

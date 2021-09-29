@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class AndroidNetworkStatus(context: Context) : INetworkStatus {
+
     private val statusSubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     init {
@@ -27,7 +28,7 @@ class AndroidNetworkStatus(context: Context) : INetworkStatus {
                     statusSubject.onNext(false)
                 }
 
-                override fun onLosing(network: Network, maxMsToLive: Int) {
+                override fun onLost(network: Network) {
                     statusSubject.onNext(false)
                 }
             })

@@ -10,9 +10,11 @@ import javax.inject.Singleton
 @Module
 class CacheModule {
 
+    @Singleton
     @Provides
     fun cacheUsers(db: GitHubDatabase): CacheUsers = RoomGithubUsersCache(db)
 
+    @Singleton
     @Provides
     fun cacheRepos(db: GitHubDatabase): CacheRepositories = RoomGithubRepositoriesCache(db)
 

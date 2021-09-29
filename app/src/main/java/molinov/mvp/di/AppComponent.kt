@@ -9,6 +9,7 @@ import molinov.mvp.di.modules.CiceroneModule
 import molinov.mvp.ui.activity.MainActivity
 import molinov.mvp.ui.activity.MainPresenter
 import molinov.mvp.ui.images.GlideImageLoader
+import molinov.mvp.ui.repo.RepoPresenter
 import molinov.mvp.ui.user.UserPresenter
 import molinov.mvp.ui.users.UsersPresenter
 import javax.inject.Singleton
@@ -32,4 +33,5 @@ interface AppComponent {
     fun inject(usersPresenter: UsersPresenter)
     fun inject(userPresenter: UserPresenter)
     fun inject(glideImageLoader: GlideImageLoader)
+    fun inject(repoPresenter: RepoPresenter)
 }
