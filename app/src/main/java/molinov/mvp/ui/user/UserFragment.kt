@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
+import molinov.mvp.data.GitHubRepositoriesRepo
+import molinov.mvp.data.GitHubUser
+import molinov.mvp.data.db.GitHubDatabase
+import molinov.mvp.data.db.RoomGithubRepositoriesCache
 import molinov.mvp.databinding.FragmentUserBinding
-import molinov.mvp.model.GithubUser
 import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.network.AndroidNetworkStatus
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.user.adapter.ReposRVAdapter
 import moxy.MvpAppCompatFragment
@@ -20,11 +24,15 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
     private var _vb: FragmentUserBinding? = null
     private val vb get() = _vb!!
-    private val imageLoader = GlideImageLoader()
+    private val imageLoader = GlideImageLoader(GitHubDatabase.getInstance())
     private val adapter by lazy { ReposRVAdapter(presenter.reposListPresenter) }
     private val presenter by moxyPresenter {
         UserPresenter(
             this.arguments?.getParcelable(PARCELABLE),
+            GitHubRepositoriesRepo(
+                RoomGithubRepositoriesCache(GitHubDatabase.getInstance()),
+                AndroidNetworkStatus(requireContext())
+            ),
             App.instance.router
         )
     }
@@ -47,7 +55,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
         return presenter.backPressed()
     }
 
-    override fun init(user: GithubUser) {
+    override fun init(user: GitHubUser) {
         user.avatarUrl?.let { imageLoader.loadTo(it, vb.avatar) }
         vb.textView.text = user.login
         vb.rvRepos.layoutManager = LinearLayoutManager(requireContext())
@@ -67,7 +75,7 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
 
     companion object {
         const val PARCELABLE = "git_hub_user_key"
-        fun newInstance(user: GithubUser): MvpAppCompatFragment {
+        fun newInstance(user: GitHubUser): MvpAppCompatFragment {
             val b = Bundle()
             b.putParcelable(PARCELABLE, user)
             val f = UserFragment()

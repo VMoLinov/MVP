@@ -3,8 +3,9 @@ package molinov.mvp.ui.user
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import molinov.mvp.model.GithubUser
-import molinov.mvp.model.UserRepo
+import molinov.mvp.data.GitHubRepositoriesRepo
+import molinov.mvp.data.GitHubRepository
+import molinov.mvp.data.GitHubUser
 import molinov.mvp.navigation.AndroidScreens
 import molinov.mvp.ui.items.IReposListPresenter
 import molinov.mvp.ui.user.adapter.RepoItemView
@@ -12,13 +13,14 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
 class UserPresenter(
-    private val user: GithubUser?,
+    private val user: GitHubUser?,
+    private val reposRepo: GitHubRepositoriesRepo,
     private val router: Router
 ) : MvpPresenter<UserView>() {
 
     class RepoListPresenter : IReposListPresenter {
 
-        val repoList = mutableListOf<UserRepo>()
+        val repoList = mutableListOf<GitHubRepository>()
 
         override var itemClickListener: ((RepoItemView) -> Unit)? = null
 
@@ -26,7 +28,7 @@ class UserPresenter(
 
         override fun bindView(view: RepoItemView) {
             val repo = repoList[view.pos]
-            view.showName(repo.name.orEmpty())
+            view.showName(repo.name)
             view.showDescription(repo.description.orEmpty())
         }
     }
@@ -44,8 +46,8 @@ class UserPresenter(
         }
     }
 
-    private fun loadData(user: GithubUser) {
-        user.getRepos(user.reposUrl.orEmpty())
+    private fun loadData(user: GitHubUser) {
+        reposRepo.getRepositories(user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

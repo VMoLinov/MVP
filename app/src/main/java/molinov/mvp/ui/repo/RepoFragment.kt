@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import molinov.mvp.App
 import molinov.mvp.R
+import molinov.mvp.data.GitHubRepository
 import molinov.mvp.databinding.FragmentRepoBinding
-import molinov.mvp.model.UserRepo
 import molinov.mvp.navigation.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -30,7 +30,7 @@ class RepoFragment : MvpAppCompatFragment(), BackButtonListener, RepoView {
         return vb.root
     }
 
-    override fun init(repo: UserRepo) {
+    override fun init(repo: GitHubRepository) {
         vb.header.findViewById<TextView>(R.id.repo_name).text = repo.name
         vb.forks.findViewById<TextView>(R.id.repo_forks).text = repo.forks.toString()
         vb.watchers.findViewById<TextView>(R.id.repo_watchers).text = repo.watchers.toString()
@@ -47,7 +47,7 @@ class RepoFragment : MvpAppCompatFragment(), BackButtonListener, RepoView {
 
     companion object {
         private const val REPO = "repo_parcelable_key"
-        fun newInstance(repo: UserRepo): RepoFragment {
+        fun newInstance(repo: GitHubRepository): RepoFragment {
             val b = Bundle()
             b.putParcelable(REPO, repo)
             val f = RepoFragment()

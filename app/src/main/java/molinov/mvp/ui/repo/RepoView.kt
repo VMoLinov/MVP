@@ -1,11 +1,11 @@
 package molinov.mvp.ui.repo
 
-import molinov.mvp.model.UserRepo
+import molinov.mvp.data.GitHubRepository
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
 @AddToEndSingle
 interface RepoView : MvpView {
 
-    fun init(repo: UserRepo)
+    fun init(repo: GitHubRepository)
 }

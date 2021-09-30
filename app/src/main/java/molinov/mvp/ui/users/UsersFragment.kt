@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import molinov.mvp.App
+import molinov.mvp.data.GitHubUsersRepo
+import molinov.mvp.data.db.GitHubDatabase
+import molinov.mvp.data.db.RoomGithubUsersCache
 import molinov.mvp.databinding.FragmentUsersBinding
-import molinov.mvp.model.GithubUsersRepo
 import molinov.mvp.navigation.BackButtonListener
+import molinov.mvp.network.AndroidNetworkStatus
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.users.adapter.UsersRVAdapter
 import moxy.MvpAppCompatFragment
@@ -20,9 +23,21 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
     private val presenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router)
+        UsersPresenter(
+            GitHubUsersRepo(
+                RoomGithubUsersCache(GitHubDatabase.getInstance()),
+                AndroidNetworkStatus(requireContext()),
+            ),
+            App.instance.router
+        )
     }
-    private val adapter by lazy { UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader()) }
+    private val adapter by lazy {
+        UsersRVAdapter(
+            presenter.usersListPresenter, GlideImageLoader(
+                GitHubDatabase.getInstance()
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
