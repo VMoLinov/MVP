@@ -1,7 +1,6 @@
 package molinov.mvp.di
 
 import dagger.Component
-import molinov.mvp.data.GitHubUser
 import molinov.mvp.di.modules.ApiModule
 import molinov.mvp.di.modules.AppModule
 import molinov.mvp.di.modules.CacheModule

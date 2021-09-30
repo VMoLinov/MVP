@@ -1,6 +1,7 @@
 package molinov.mvp.di.modules
 
 import android.content.Context
+import android.widget.ImageView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Binds
@@ -11,6 +12,8 @@ import molinov.mvp.network.INetworkStatus
 import molinov.mvp.remote.ApiHolder
 import molinov.mvp.remote.IApiHolder
 import molinov.mvp.remote.IDataSource
+import molinov.mvp.ui.images.GlideImageLoader
+import molinov.mvp.ui.images.IImageLoader
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +24,10 @@ import javax.inject.Singleton
 interface ApiModule {
 
     @Binds
-    fun abc(impl: ApiHolder): IApiHolder
+    fun api(impl: ApiHolder): IApiHolder
+
+    @Binds
+    fun glide(impl: GlideImageLoader): IImageLoader<ImageView>
 
     companion object {
 
