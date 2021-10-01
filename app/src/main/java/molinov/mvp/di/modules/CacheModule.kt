@@ -28,9 +28,6 @@ class CacheModule {
             .build()
     }
 
-    @Provides
-    fun glide(): IImageLoader<ImageView> = GlideImageLoader()
-
     companion object {
         private const val DB_NAME = "database.db"
     }

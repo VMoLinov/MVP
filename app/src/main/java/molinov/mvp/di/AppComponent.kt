@@ -34,5 +34,4 @@ interface AppComponent {
     fun inject(userPresenter: UserPresenter)
     fun inject(glideImageLoader: GlideImageLoader)
     fun inject(repoPresenter: RepoPresenter)
-    fun inject(usersRVAdapter: UsersRVAdapter)
 }

@@ -26,9 +26,6 @@ interface ApiModule {
     @Binds
     fun api(impl: ApiHolder): IApiHolder
 
-//    @Binds
-//    fun glide(impl: GlideImageLoader): IImageLoader<ImageView>
-
     companion object {
 
         @Provides
