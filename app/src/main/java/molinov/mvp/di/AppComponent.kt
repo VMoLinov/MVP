@@ -11,6 +11,7 @@ import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.repo.RepoPresenter
 import molinov.mvp.ui.user.UserPresenter
 import molinov.mvp.ui.users.UsersPresenter
+import molinov.mvp.ui.users.adapter.UsersRVAdapter
 import javax.inject.Singleton
 
 @Singleton
@@ -33,4 +34,5 @@ interface AppComponent {
     fun inject(userPresenter: UserPresenter)
     fun inject(glideImageLoader: GlideImageLoader)
     fun inject(repoPresenter: RepoPresenter)
+    fun inject(usersRVAdapter: UsersRVAdapter)
 }

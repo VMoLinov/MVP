@@ -4,7 +4,7 @@ import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import molinov.mvp.data.GitHubUser
-import molinov.mvp.data.GitHubUsersRepo
+import molinov.mvp.remote.GitHubUsersRepo
 import molinov.mvp.navigation.AndroidScreens
 import molinov.mvp.ui.items.IUserListPresenter
 import molinov.mvp.ui.users.adapter.UserItemView

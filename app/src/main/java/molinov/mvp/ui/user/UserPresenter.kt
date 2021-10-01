@@ -3,7 +3,7 @@ package molinov.mvp.ui.user
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import molinov.mvp.data.GitHubRepositoriesRepo
+import molinov.mvp.remote.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubRepository
 import molinov.mvp.data.GitHubUser
 import molinov.mvp.navigation.AndroidScreens

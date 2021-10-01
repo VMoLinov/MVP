@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import molinov.mvp.databinding.ItemUserBinding
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.items.IUserListPresenter
+import javax.inject.Inject
 
 class UsersRVAdapter(
-    private val presenter: IUserListPresenter,
-    private val imageLoader: GlideImageLoader
+    private val presenter: IUserListPresenter
 ) : RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
+
+    @Inject
+    lateinit var imageLoader: GlideImageLoader
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

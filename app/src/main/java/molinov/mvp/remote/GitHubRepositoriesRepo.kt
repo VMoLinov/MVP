@@ -1,9 +1,10 @@
-package molinov.mvp.data
+package molinov.mvp.remote
 
 import io.reactivex.rxjava3.core.Single
+import molinov.mvp.data.GitHubRepository
+import molinov.mvp.data.GitHubUser
 import molinov.mvp.data.db.CacheRepositories
 import molinov.mvp.network.INetworkStatus
-import molinov.mvp.remote.IApiHolder
 import javax.inject.Inject
 
 class GitHubRepositoriesRepo @Inject constructor(
