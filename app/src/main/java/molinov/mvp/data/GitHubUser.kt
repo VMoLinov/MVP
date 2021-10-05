@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GitHubUser(
+
     @Expose
     val id: Long,
 

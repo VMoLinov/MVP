@@ -3,7 +3,7 @@ package molinov.mvp.ui.user
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import molinov.mvp.data.GitHubRepositoriesRepo
+import molinov.mvp.remote.GitHubRepositoriesRepo
 import molinov.mvp.data.GitHubRepository
 import molinov.mvp.data.GitHubUser
 import molinov.mvp.navigation.AndroidScreens
@@ -11,12 +11,17 @@ import molinov.mvp.ui.items.IReposListPresenter
 import molinov.mvp.ui.user.adapter.RepoItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 class UserPresenter(
-    private val user: GitHubUser?,
-    private val reposRepo: GitHubRepositoriesRepo,
-    private val router: Router
+    private val user: GitHubUser?
 ) : MvpPresenter<UserView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var reposRepo: GitHubRepositoriesRepo
 
     class RepoListPresenter : IReposListPresenter {
 

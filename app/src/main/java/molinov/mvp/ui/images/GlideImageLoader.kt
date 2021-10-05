@@ -20,10 +20,12 @@ import molinov.mvp.data.db.RoomCachedImage
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
-class GlideImageLoader(
-    private val db: GitHubDatabase
-) : IImageLoader<ImageView> {
+class GlideImageLoader: IImageLoader<ImageView> {
+
+    @Inject
+    lateinit var db: GitHubDatabase
 
     override fun loadTo(url: String, targetView: ImageView) {
         Glide.with(targetView.context)
