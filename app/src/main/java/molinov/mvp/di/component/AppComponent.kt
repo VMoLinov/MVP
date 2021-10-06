@@ -1,4 +1,4 @@
-package molinov.mvp.di
+package molinov.mvp.di.component
 
 import dagger.Component
 import molinov.mvp.di.modules.ApiModule
@@ -9,9 +9,6 @@ import molinov.mvp.ui.activity.MainActivity
 import molinov.mvp.ui.activity.MainPresenter
 import molinov.mvp.ui.images.GlideImageLoader
 import molinov.mvp.ui.repo.RepoPresenter
-import molinov.mvp.ui.user.UserPresenter
-import molinov.mvp.ui.users.UsersPresenter
-import molinov.mvp.ui.users.adapter.UsersRVAdapter
 import javax.inject.Singleton
 
 @Singleton
@@ -25,13 +22,13 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
+    fun usersSubcomponent(): UsersSubcomponent
+
     fun mainPresenter(): MainPresenter
-    fun usersPresenter(): UsersPresenter
+
+    fun repoPresenter(): RepoPresenter
 
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
-    fun inject(usersPresenter: UsersPresenter)
-    fun inject(userPresenter: UserPresenter)
     fun inject(glideImageLoader: GlideImageLoader)
-    fun inject(repoPresenter: RepoPresenter)
 }
