@@ -17,8 +17,7 @@ class RepoFragment : MvpAppCompatFragment(), BackButtonListener, RepoView {
 
     private val presenter by moxyPresenter {
         RepoPresenter(this.arguments?.getParcelable(REPO)).apply {
-            App.instance.initRepositorySubcomponent()
-            App.instance.repositorySubcomponent?.inject(this)
+            App.instance.appComponent.inject(this)
         }
     }
     private var _vb: FragmentRepoBinding? = null

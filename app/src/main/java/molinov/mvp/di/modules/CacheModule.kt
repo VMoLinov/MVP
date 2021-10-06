@@ -1,14 +1,10 @@
 package molinov.mvp.di.modules
 
 import android.content.Context
-import android.media.Image
-import android.widget.ImageView
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import molinov.mvp.data.db.*
-import molinov.mvp.ui.images.GlideImageLoader
-import molinov.mvp.ui.images.IImageLoader
 import javax.inject.Singleton
 
 @Module

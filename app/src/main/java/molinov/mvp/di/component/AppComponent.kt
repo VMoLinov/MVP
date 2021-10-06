@@ -26,9 +26,8 @@ interface AppComponent {
 
     fun mainPresenter(): MainPresenter
 
-    fun repoPresenter(): RepoPresenter
-
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)
+    fun inject(repoPresenter: RepoPresenter)
     fun inject(glideImageLoader: GlideImageLoader)
 }
