@@ -22,7 +22,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import javax.inject.Inject
 
-class GlideImageLoader: IImageLoader<ImageView> {
+class GlideImageLoader : IImageLoader<ImageView> {
 
     @Inject
     lateinit var db: GitHubDatabase

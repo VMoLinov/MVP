@@ -24,7 +24,8 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
     private val adapter by lazy { ReposRVAdapter(presenter.reposListPresenter) }
     private val presenter by moxyPresenter {
         UserPresenter(this.arguments?.getParcelable(PARCELABLE)).apply {
-            App.instance.appComponent.inject(this)
+            App.instance.initRepositorySubcomponent()
+            App.instance.repositorySubcomponent?.inject(this)
         }
     }
 

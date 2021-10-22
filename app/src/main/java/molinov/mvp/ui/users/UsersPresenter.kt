@@ -4,18 +4,21 @@ import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import molinov.mvp.data.GitHubUser
-import molinov.mvp.remote.GitHubUsersRepo
 import molinov.mvp.navigation.AndroidScreens
+import molinov.mvp.remote.GitHubUsersRepo
 import molinov.mvp.ui.items.IUserListPresenter
 import molinov.mvp.ui.users.adapter.UserItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class UsersPresenter @Inject constructor(
-    private val usersRepo: GitHubUsersRepo,
-    private val router: Router
-) : MvpPresenter<UsersView>() {
+class UsersPresenter : MvpPresenter<UsersView>() {
+
+    @Inject
+    lateinit var usersRepo: GitHubUsersRepo
+
+    @Inject
+    lateinit var router: Router
 
     class UsersListPresenter : IUserListPresenter {
 
