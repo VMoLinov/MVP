@@ -11,7 +11,7 @@ import molinov.mvp.ui.users.adapter.UserItemView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class UsersPresenter(
+class UsersPresenter internal constructor(
     private val usersRepo: GitHubUsersRepo,
     private val router: Router
 ) : MvpPresenter<UsersView>() {
@@ -42,7 +42,7 @@ class UsersPresenter(
         }
     }
 
-    private fun loadData() {
+    internal fun loadData() {
         usersRepo.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
