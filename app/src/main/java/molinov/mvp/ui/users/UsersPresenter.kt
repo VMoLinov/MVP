@@ -54,7 +54,7 @@ class UsersPresenter internal constructor(
             })
     }
 
-    fun backPressed(): Boolean {
+    internal fun backPressed(): Boolean {
         router.exit()
         return true
     }
